@@ -5,6 +5,9 @@ jdk:
 branches: #Travis CI를 어느 브랜치가 푸시될 때 수행할지 지정한다 (현재 옵션: master 브랜치에 push될 때만 수행한다)
   only:
     - master
+    -
+before_install:
+  - chmod +x gradlew
 
 # Travis CI 서버의 Home
 cache: #그레이들을 통해 의존성을 받게 되면 이를 해당 디렉토리에 캐시하여, 같은 의존성은 다음 배포 때부터 다시 받지 않도록 설정한다
