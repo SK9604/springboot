@@ -5,7 +5,7 @@ jdk:
 branches: #Travis CI를 어느 브랜치가 푸시될 때 수행할지 지정한다 (현재 옵션: master 브랜치에 push될 때만 수행한다)
   only:
     - master
-    -
+
 before_install:
   - chmod +x gradlew
 
