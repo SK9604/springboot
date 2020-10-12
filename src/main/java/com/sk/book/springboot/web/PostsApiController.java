@@ -1,36 +1,50 @@
 package com.sk.book.springboot.web;
 
-import com.sk.book.springboot.service.posts.PostsService;
+import com.sk.book.springboot.service.PostsService;
+import com.sk.book.springboot.web.dto.PostsListResponseDto;
 import com.sk.book.springboot.web.dto.PostsResponseDto;
 import com.sk.book.springboot.web.dto.PostsSaveRequestDto;
 import com.sk.book.springboot.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@RequiredArgsConstructor //final이 선언된 모든 필드를 인자값으로 하는 생성자를 대신 생성해 줌
+import java.util.List;
+
+@RequiredArgsConstructor
 @RestController
 public class PostsApiController {
-    //@Autowired 대신 생성자로 Bean 객체를 받도록 한다
+
     private final PostsService postsService;
 
     @PostMapping("/api/v1/posts")
-    public Long save(@RequestBody PostsSaveRequestDto requestDto){
+    public Long save(@RequestBody PostsSaveRequestDto requestDto) {
         return postsService.save(requestDto);
     }
 
     @PutMapping("/api/v1/posts/{id}")
-    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto){
+    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
         return postsService.update(id, requestDto);
     }
 
+    @DeleteMapping("/api/v1/posts/{id}")
+    public Long delete(@PathVariable Long id) {
+        postsService.delete(id);
+        return id;
+    }
+
     @GetMapping("/api/v1/posts/{id}")
-    public PostsResponseDto findById (@PathVariable Long id){
+    public PostsResponseDto findById(@PathVariable Long id) {
         return postsService.findById(id);
     }
 
-    @DeleteMapping("/api/v1/posts/{id}")
-    public Long delete(@PathVariable Long id){
-        postsService.delete(id);
-        return id;
+    @GetMapping("/api/v1/posts/list")
+    public List<PostsListResponseDto> findAll() {
+        return postsService.findAllDesc();
     }
 }

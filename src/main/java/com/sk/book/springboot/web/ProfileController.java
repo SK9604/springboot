@@ -26,4 +26,3 @@ public class ProfileController {
                 .orElse(defaultProfile);
     }
 }
-
