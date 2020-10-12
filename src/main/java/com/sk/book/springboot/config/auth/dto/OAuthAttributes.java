@@ -16,9 +16,7 @@ public class OAuthAttributes {
     private String picture;
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes,
-                           String nameAttributeKey, String name,
-                           String email, String picture) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
@@ -26,11 +24,11 @@ public class OAuthAttributes {
         this.picture = picture;
     }
 
-    //of() : OAuth2User에서 반환하는 사용자 정보는 Map이기 때문에 값 하나하나를 변환해야만 합니다
-    public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String,Object> attributes) {
-        if("naver".equals(registrationId)){
+    public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
+        if("naver".equals(registrationId)) {
             return ofNaver("id", attributes);
         }
+
         return ofGoogle(userNameAttributeName, attributes);
     }
 
@@ -43,8 +41,10 @@ public class OAuthAttributes {
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
+
     private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+
         return OAuthAttributes.builder()
                 .name((String) response.get("name"))
                 .email((String) response.get("email"))
@@ -53,8 +53,8 @@ public class OAuthAttributes {
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
-    //toEntity() : User 엔티티를 생성한다, OAuthAttributes에서 엔티티를 생성하는 시점은 처음 가입할 때이다
-    public User toEntity(){
+
+    public User toEntity() {
         return User.builder()
                 .name(name)
                 .email(email)

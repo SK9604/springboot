@@ -47,7 +47,6 @@ public class Order{
 public void 주문서비스의_최소이벤트(){
     order.setStatus(false);
 }
-
 //올바른 사용 예
 public class Order{
     public void cancelOrder(){
