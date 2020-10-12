@@ -26,7 +26,7 @@ public class ProfileControllerUnitTest {
     }
 
     @Test
-    public void real_profile이_없으면_첫번째가_조회된다(){
+    public void real_profile이_없으면_첫번째가_조회된다() {
         //given
         String expectedProfile = "oauth";
         MockEnvironment env = new MockEnvironment();
